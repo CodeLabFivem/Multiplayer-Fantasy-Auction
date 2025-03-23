@@ -77,6 +77,19 @@ header {
     background: #059669;
 }
 
+#next-players-list {
+    max-height: 200px;   /* Height limit */
+    overflow-y: auto;    /* Scroll if content overflows */
+    border: 1px solid #ccc; /* Optional: to visually separate the list */
+    padding-right: 10px;  /* Prevent content cutoff by scrollbar */
+}
+
+.player-item {
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd; /* Add spacing and divider between players */
+}
+
+
 table {
     width: 100%;
     border-collapse: collapse;
