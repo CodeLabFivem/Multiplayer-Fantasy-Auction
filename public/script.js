@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentPlayer: null,
         currentBid: 0,
         currentBidder: null,
-        timeLeft: 30,
+        timeLeft: 45,
         timer: null
     };
 
