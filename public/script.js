@@ -514,12 +514,12 @@ if (placeBidButton) {
     }
 
     // Next Player Button
-    const nextPlayerButton = document.getElementById('next-player-btn');
-    if (nextPlayerButton) {
-        nextPlayerButton.addEventListener('click', () => {
-            socket.emit('nextPlayer');
-        });
-    }
+const nextPlayerButton = document.getElementById('next-player-btn');
+if (nextPlayerButton) {
+    nextPlayerButton.addEventListener('click', () => {
+        socket.emit('nextPlayer');
+    });
+}
 
     // Mark as Sold Button
     const soldPlayerButton = document.getElementById('sold-player-btn');
