@@ -365,24 +365,23 @@ socket.on('placeBid', (data) => {
         }
     });
 
-    // Handle moving to the next player
-socket.on('nextPlayer', () => {
-    if (auctionState.status === "active" || auctionState.status === "paused") {
-        const nextPlayer = players.find(player => player.status === "waiting");
-        if (nextPlayer) {
-            const playerIndex = players.indexOf(nextPlayer);
-            socket.emit('startAuction', playerIndex); // Start auction for the next player
-
-            // Dynamically update the next players list
-            updateNextPlayersList(players);
-        } else {
-            io.emit('chatMessage', {
-                sender: "Admin",
-                message: "No more players left in the queue."
-            });
+    socket.on('nextPlayer', () => {
+        if (auctionState.status === "active" || auctionState.status === "paused") {
+            const nextPlayer = players.find(player => player.status === "waiting");
+            if (nextPlayer) {
+                const playerIndex = players.indexOf(nextPlayer);
+                socket.emit('startAuction', playerIndex); // Start auction for the next player
+    
+                // Dynamically update the next players list
+                updateNextPlayersList(players);
+            } else {
+                io.emit('chatMessage', {
+                    sender: "Admin",
+                    message: "No more players left in the queue."
+                });
+            }
         }
-    }
-});
+    });
 
     // Handle ending auction
     socket.on('endAuction', (sold) => {
