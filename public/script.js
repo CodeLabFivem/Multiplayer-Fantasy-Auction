@@ -247,28 +247,31 @@ socket.on('auctionUpdate', (updatedAuctionState) => {
     }
 
     function updateAdminPlayerList() {
-        const adminPlayerList = document.getElementById('admin-player-list');
-        if (!adminPlayerList) {
-            console.error('Could not find admin-player-list element');
-            return;
-        }
-
-        adminPlayerList.innerHTML = '';
-
-        players.forEach((player, index) => {
-            const playerCard = document.createElement('div');
-            playerCard.className = 'player-card';
-            playerCard.innerHTML = `
-                <div class="player-name">${player.name}</div>
-                <div class="player-category">${player.category}</div>
-                <div class="player-price">Base Price: $${player.basePrice.toLocaleString()}</div>
-                <div class="player-status">Status: ${player.status}</div>
-                <button onclick="socket.emit('startAuction', ${index})">Start Auction</button>
-            `;
-            adminPlayerList.appendChild(playerCard);
-        });
+    const adminPlayerList = document.getElementById('admin-player-list');
+    if (!adminPlayerList) {
+        console.error('Could not find admin-player-list element');
+        return;
     }
-
+    adminPlayerList.innerHTML = '';
+    players.forEach((player, index) => {
+        const playerCard = document.createElement('div');
+        playerCard.className = 'player-card';
+        playerCard.innerHTML = `
+            <div class="player-name">${player.name}</div>
+            <div class="player-category">${player.category}</div>
+            <div class="player-price">Base Price: $${player.basePrice.toLocaleString()}</div>
+            <div class="player-status">Status: ${player.status}</div>
+            <button class="auction-button" data-index="${index}">Start Auction</button>
+        `;
+        adminPlayerList.appendChild(playerCard);
+        
+        // Add event listener separately to avoid serialization issues
+        const button = playerCard.querySelector('.auction-button');
+        button.addEventListener('click', function() {
+            socket.emit('startAuction', index);
+        });
+    });
+}
     function startTimer() {
         if (auctionState.timer) {
             clearInterval(auctionState.timer);
