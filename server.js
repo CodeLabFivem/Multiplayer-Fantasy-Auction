@@ -254,7 +254,7 @@ let players = [
     { name: "Eshan Malinga", category: "bowler", basePrice: 30000000, status: "waiting" },
     { name: "Sachin Baby", category: "batter", basePrice: 30000000, status: "waiting" }
 ];
-let auctionState = { status: "inactive", currentPlayer: null, currentBid: 0, currentBidder: null, timeLeft: 30 };
+let auctionState = { status: "inactive", currentPlayer: null, currentBid: 0, currentBidder: null, timeLeft: 45 };
 let adminAccessCode = "admin123";
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -344,7 +344,7 @@ socket.on('placeBid', (data) => {
             auctionState.currentPlayer = players[playerIndex];
             auctionState.currentBid = players[playerIndex].basePrice;
             auctionState.currentBidder = null;
-            auctionState.timeLeft = 30; // Reset timer
+            auctionState.timeLeft = 45; // Reset timer
             
             players[playerIndex].status = "active";
             
@@ -430,7 +430,7 @@ socket.on('nextPlayer', () => {
             auctionState.currentPlayer = null;
             auctionState.currentBid = 0;
             auctionState.currentBidder = null;
-            auctionState.timeLeft = 30;
+            auctionState.timeLeft = 45;
             
             io.emit('auctionUpdate', auctionState);
             io.emit('playersUpdate', players);
